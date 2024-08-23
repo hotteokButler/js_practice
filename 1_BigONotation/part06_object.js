@@ -47,7 +47,7 @@ console.log(Object.entries(exObject));
 ]
 */
 
-//Oobject.hasOwnProperty(key) , Object.hasOwn(object,key)-> object의 내부 key값 존재 유무 정해진 값을 받아 boolean type으로 return => O(1)
+//Object.hasOwnProperty(key) , Object.hasOwn(object,key)-> object의 내부 key값 존재 유무 정해진 값을 받아 boolean type으로 return => O(1)
 console.log(exObject.hasOwnProperty('one'));//true
 console.log(exObject.hasOwnProperty(1));//false (key기준)
 console.log(Object.hasOwn(exObject,'two'));//true
