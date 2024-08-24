@@ -95,22 +95,32 @@ function charCount (str)  {
 };
 */
 
+function isCharNumeric(char) {
+  const code = char.charCodeAt(0);
+  if (
+    !(code > 47 && code < 58) && // numeric (0 to 9)
+    !(code > 64 && code < 91) && // upper (A to Z)
+    !(code > 96 && code < 123) // lower (a to z)
+  ) {
+    return false;
+  }
+  return true;
+}
+
 function charCount(str) {
   // 시작 => 객체 생성
   const result = {};
   // 과정 => string 문자열 순회하며 각각의 문자 처리
   for (const char of str.toLowerCase()) {
-    
-      // 문자나 숫자가 아닌 공백,마침표 등등 일 경우 카운팅 하지 않고 다음 문자열 체크
-      if (!(/[a-z0-9]/.test(char))) continue;
-      
-      // 문자가 숫자/문자 && 객체 안에 없을 경우 => object의 key로 설정 후 +1
-      //문자가 숫자/문자 && 객체 안에 있을 경우 => 해당 숫자/문자의 key로 값을 찾아 +1
-      result[char] = ++result[char] || 1;
+    // 문자나 숫자가 아닌 공백,마침표 등등 일 경우 카운팅 하지 않고 다음 문자열 체크
+    if (!isCharNumeric(char)) continue;
+
+    // 문자가 숫자/문자 && 객체 안에 없을 경우 => object의 key로 설정 후 +1
+    //문자가 숫자/문자 && 객체 안에 있을 경우 => 해당 숫자/문자의 key로 값을 찾아 +1
+    result[char] = ++result[char] || 1;
   }
   // 끝 => 객체를 반환한다
   return result;
 }
 
-
-console.log(charCount('aaaaa~~~~bbb**(@@ccccccccccc!!!!&&&    dddddd'));  //{ a: 5, b: 3, c: 11, d: 6 }
+console.log(charCount('aaaaa~~~~bbb**(@@ccccccccccc!!!!&&&    dddddd')); //{ a: 5, b: 3, c: 11, d: 6 }
