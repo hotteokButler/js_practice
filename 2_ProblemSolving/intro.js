@@ -99,19 +99,17 @@ function charCount(str) {
   // 시작 => 객체 생성
   const result = {};
   // 과정 => string 문자열 순회하며 각각의 문자 처리
-  for (let i = 0; i < str.length; i++) {
-    // 영대문자 -> 영소문자
-    const char = str[i].toLowerCase();
+  for (const char of str.toLowerCase()) {
     
-    // 문자나 숫자가 아닌 공백,마침표 등등 일 경우 카운팅 하지 않고 다음 문자열 체크
-    if (!(/[a-z0-9]/.test(char))) continue;
-
-    if (result[char] > 0) { // 문자가 숫자/문자 && 객체 안에 없을 경우 => object의 key로 설정 후 +1
-      result[char]++;
-    } else { //문자가 숫자/문자 && 객체 안에 있을 경우 => 해당 숫자/문자의 key로 값을 찾아 +1
-
-      result[char] = 1;
-    }
+      // 문자나 숫자가 아닌 공백,마침표 등등 일 경우 카운팅 하지 않고 다음 문자열 체크
+      if (!(/[a-z0-9]/.test(char))) continue;
+  
+      if (result[char] > 0) { // 문자가 숫자/문자 && 객체 안에 없을 경우 => object의 key로 설정 후 +1
+        result[char]++;
+      } else { //문자가 숫자/문자 && 객체 안에 있을 경우 => 해당 숫자/문자의 key로 값을 찾아 +1
+  
+        result[char] = 1;
+      }
   }
   // 끝 => 객체를 반환한다
   return result;
