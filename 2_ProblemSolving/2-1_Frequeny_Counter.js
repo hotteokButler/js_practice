@@ -27,9 +27,11 @@ const same = (arr1, arr2) => {
   for (const arr1Elem of arr1) {
     //arr1 요소의 인덱스
     const idx = arr2.indexOf(Math.pow(arr1Elem, 2));
-    if (idx > -1) { // 인덱스가 있으면 arr2에서 제거해서 중복으로 확인 되는 것 방지
+    if (idx > -1) {
+      // 인덱스가 있으면 arr2에서 제거해서 중복으로 확인 되는 것 방지
       arr2.splice(idx, 1);
-    } else { //없으면 바로 false 리턴
+    } else {
+      //없으면 바로 false 리턴
       return false;
     }
   }
@@ -37,14 +39,61 @@ const same = (arr1, arr2) => {
   //
 };
 
-console.log(same([1, 2, 3], [4, 1, 9]));
-
-console.log(same([1, 2, 3], [1, 9]));
-console.log(same([1, 2, 1], [4, 4, 1]));
-
-console.log(same([1, 2, 1, 5, 3], [4, 1, 1, 25, 9])); //true
-
 const t1 = performance.now();
-console.log(same([1, 2, 1, 5, 3], [4, 4, 1, 25, 9])); //false
+console.log(
+  same(
+    [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2,
+      3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100,
+    ],
+    [
+      1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000, 1, 4, 9, 16, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000, 25, 36, 49,
+      64, 81, 100, 10000, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000,
+    ]
+  )
+);
 const t2 = performance.now();
-console.log(`same 걸린 시간 : ${(t2 - t1) / 1000}s`);
+console.log(`same 걸린 시간 : ${(t2 - t1) / 1000}s`); //same 걸린 시간 : 0.010898541000000008s
+
+/*
+ > 위의 해결책의 경우 하나의 for문을 사용한 것 같지만 그 자체가 loop인 indexOf를 사용
+ > 시간복잡도 = O(N^2)의 복잡도를 가짐
+*/
+
+//(answer) frequency conter => 시간복잡도 = O(N)
+//> 두 개의 중첩 루프보다 개별 루프가 낫다
+
+const sameAnswer = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) return false;
+  // 중첩 for루프 없이 개별 배열의 빈도수를 count
+  const frequencyCounter1 = {};
+  const frequencyCounter2 = {};
+  for (const val of arr1) {
+    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
+  }
+  for (const val of arr2) {
+    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+  }
+  for (const key in frequencyCounter1) {
+    if (!(key ** 2 in frequencyCounter2)) return false; //제곱의 값이 두번째
+    if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) return false;
+  }
+
+  return true;
+};
+
+const t3 = performance.now();
+console.log(
+  sameAnswer(
+    [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2,
+      3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100,
+    ],
+    [
+      1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000, 1, 4, 9, 16, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000, 25, 36, 49,
+      64, 81, 100, 10000, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 10000,
+    ]
+  )
+);
+const t4 = performance.now();
+console.log(`sameAnswer 걸린 시간 : ${(t4 - t3) / 1000}s`); //sameAnswer 걸린 시간 : 0.000051708000000004974s
