@@ -97,3 +97,85 @@ console.log(
 );
 const t4 = performance.now();
 console.log(`sameAnswer 걸린 시간 : ${(t4 - t3) / 1000}s`); //sameAnswer 걸린 시간 : 0.000051708000000004974s
+
+/*
+  
+ [Frequency Counter - 정리] 
+  객체를 사용
+    :객체를 사용하여 구성하는 것은 배열이나 문자열의 내용을 분석하는 방법으로 
+    두 개의 배열을 객체로 세분화 하여 각 배열의 요소들 분류 후 각 배열을 비교 가능
+
+ */
+
+/*
+(ex2): 두 개의 문자열을 받아 서로의 애너그램인지 확인 후 true/false 리턴하는 함수 validAnagram을 작성하시오
+
+validAnagram('',''); // true
+validAnagram('aaz','zza'); // false
+validAnagram('anagram','nagaram'); //true
+validAnagram('rat','car'); //false
+validAnagram('awesome','awesom'); //false
+validAnagram('qwerty','qeywrt'); //true
+validAnagram('texttwisttime','timetwisttext'); //true
+
+*/
+
+// 내 풀이
+const validAnagram = (str1, str2) => {
+  if (str1.length !== str2.length) return false;
+  if (str1 === '' && str2 === '') return true;
+
+  const str1Counter = {};
+  const str2Counter = {};
+
+  for (const char of str1) {
+    str1Counter[char] = (str1Counter[char] || 0) + 1;
+  }
+  for (const char of str2) {
+    str2Counter[char] = (str2Counter[char] || 0) + 1;
+  }
+
+  for (const char in str1Counter) {
+    if (str1Counter[char] !== str2Counter[char]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+console.log(validAnagram('', ''));
+console.log(validAnagram('aaz', 'zza'));
+console.log(validAnagram('anagram', 'nagaram'));
+console.log(validAnagram('rat', 'car'));
+console.log(validAnagram('awesome', 'awesom'));
+console.log(validAnagram('qwerty', 'qeywrt'));
+console.log(validAnagram('texttwisttime', 'timetwisttext'));
+
+//refactor
+
+const validAnagramRefact = (str1, str2) => {
+  if (str1.length !== str2.length) return false;
+  if (str1 === '' && str2 === '') return true;
+  const strCounter = {};
+  for (const char of str1) {
+    strCounter[char] ? (strCounter[char] += 1) : (strCounter[char] = 1);
+  }
+  for (const char of str2) {
+    if (!strCounter[char]) {
+      return false;
+    } else {
+      strCounter[char] -= 1;
+    }
+  }
+  return true;
+};
+
+console.log('refactoring');
+console.log(validAnagramRefact('', ''));
+console.log(validAnagramRefact('aaz', 'zza'));
+console.log(validAnagramRefact('aazaaaz', 'aaaazza'));
+console.log(validAnagramRefact('anagram', 'nagaram'));
+console.log(validAnagramRefact('rat', 'car'));
+console.log(validAnagramRefact('awesome', 'awesom'));
+console.log(validAnagramRefact('qwerty', 'qeywrt'));
+console.log(validAnagramRefact('texttwisttime', 'timetwisttext'));
