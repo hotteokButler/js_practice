@@ -95,7 +95,59 @@ const countUniqueValues = (intArr) => {
 
 //수정 필요
 console.log('countUniqueValues');
-console.log(countUniqueValues([ 1, 1, 1, 1, 1, 2]));
+console.log(countUniqueValues([1, 1, 1, 1, 1, 2]));
 console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 5, 5, 12, 12, 13]));
 console.log(countUniqueValues([]));
-console.log(countUniqueValues([ -2, -1, -1, 0, 1]));
+console.log(countUniqueValues([-2, -1, -1, 0, 1]));
+
+// solution- ex02
+
+/*
+
+basis : 기준점 
+round : index를 증가시키며 비교하는 값
+
+basis와 round 위치의 같으면 round 인덱스 증가
+basis와 round 위치의 값이 다르면 basis 인덱스 증가 후 해당 자리에 비교값 할당, round 인덱스 증가 
+
+해당 작업 반복 후 round의 인덱스가 배열 마지막 인덱스가 되면 basis 의 index+1(인덱스는 0부터 시작하므로) 리턴
+
+*/
+
+// const solCountuniqueValues = (intArr) => {
+//   if (intArr.length === 0) return 0; // 빈 배열은 비교 할 필요 없으니 바로 0 리턴
+
+//   let basis = 0;
+//   let round = 1;
+
+//   while (round < intArr.length) {
+
+//     if (intArr[basis] !== intArr[round]) {
+//       basis++;
+//       intArr[basis] = intArr[round];
+//     }
+
+//     round++;
+//   }
+
+//   return basis + 1;
+// };
+
+const solCountuniqueValues = (intArr) => {
+  if (intArr.length === 0) return 0; // 빈 배열은 비교 할 필요 없으니 바로 0 리턴
+  let i = 0;
+  for (let j = 0; j < intArr.length; j++) {
+      if(intArr[i] !== intArr[j]) {
+      i++;
+      intArr[i] = intArr[j];
+      }
+  }
+
+  return i + 1;
+};
+
+console.log('solCountuniqueValues');
+console.log(solCountuniqueValues([1, 1, 1, 1, 1, 2, 3]));
+console.log(solCountuniqueValues([1, 2, 3, 4, 4, 4, 5, 5, 12, 12, 13]));
+console.log(solCountuniqueValues([]));
+console.log(solCountuniqueValues([-2, -1, -1, 0, 1]));
