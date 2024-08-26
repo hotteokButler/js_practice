@@ -19,6 +19,7 @@ sumZero([-2,0,1,3]) // undefined
 sumZero([1,2,3]) // undefined
 */
 
+// 내 풀이
 const sumZero = (intArr) => {
   // 다중포인터 -> 한쌍의 값을 찾으므로 포인터를 두 개 사용 한다?
   // 처음 끝 양쪽에서부터 이동하며 비교
@@ -59,4 +60,42 @@ const sumZeroUseNL = (intArr) => {
 /*
 (ex02) - 정렬된 정수의 배열을 받아 배열의 고유값의 갯수를 리턴하는 countUniqueValues 함수를 작성하시오
 (음수가 올 수 있다, 배열은 항상 sort된 상태이다)
+
+countUniqueValues([1,1,1,1,1,2])//2
+countUniqueValues([1,2,3,4,4,4,5,5,12,12,13]) //7
+countUniqueValues([])//0
+countUniqueValues([-2,-1,-1,0,1]) //3
 */
+
+const countUniqueValues = (intArr) => {
+  //음수가 배열의 요소로 올 수 있음 -> ex)  [-1,1] => -1과 1 고유값 2가지
+  //포인터 2개 선언
+  //  - 두개의 포인터를 증가 시키면서 서로 비교,
+  //  - 선증가된 비교값의 포인터가 배열의 마지막 인덱스가 되면 종료 후 갯수 반환
+  //  - 빈 배열을 받으면 무조건 0 리턴 => 따라서 count의 초기값은 1
+
+  if (intArr.length === 0) return 0;
+
+  let basis = 0;
+  let round = 1;
+  let count = 1;
+
+  while (round < intArr.length) {
+    const baseElem = intArr[basis];
+    const roundElem = intArr[round];
+
+    if (baseElem !== roundElem) count++;
+
+    basis++;
+    round++;
+  }
+
+  return count;
+};
+
+//수정 필요
+console.log('countUniqueValues');
+console.log(countUniqueValues([ 1, 1, 1, 1, 1, 2]));
+console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 5, 5, 12, 12, 13]));
+console.log(countUniqueValues([]));
+console.log(countUniqueValues([ -2, -1, -1, 0, 1]));
