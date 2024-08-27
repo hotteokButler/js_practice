@@ -22,6 +22,8 @@
       maxSubarraySum([],4) // null
 */
 
+
+// 해답 보기 전
 const maxSubarraySum = (arr, n) => {
   // 빈 배열 또는 조건에 맞지 않을 경우 null -> 배열의 길이보다 n의 숫자가 클때
   if (arr.length < n) return null;
@@ -29,14 +31,14 @@ const maxSubarraySum = (arr, n) => {
   let result = 0;
   let tempSum = 0;
 
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) { // 시작값 연속된 n갯수 만큼 합
     result += arr[i];
   }
 
   tempSum = result;
 
   for (let j = n; j < arr.length; j++) {
-    //window는 고정값이므로 한칸씩 이동하므로 이전 첫요소 빼고 다음 첫 요소 더함
+    //window는 고정값이므로 한칸씩 이동하므로 이전 첫 요소 빼고 다음 요소 더함
     tempSum = tempSum - arr[j - n] + arr[j];
     // result와 tempSum 중 큰 값을 result에 할당
     result = Math.max(result, tempSum);
@@ -50,3 +52,6 @@ console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4)); // 17
 console.log(maxSubarraySum([4, 2, 1, 6], 1)); //6
 console.log(maxSubarraySum([4, 2, 1, 6, 2], 4)); // 13
 console.log(maxSubarraySum([], 4)); // null
+
+
+// 풀이 =>  풀이와 동일, 시간 복잡도는 O(N)
