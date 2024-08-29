@@ -18,3 +18,26 @@
   함수를 결과 값을 반환(함수가 종료)하면 스택에 쌓여있던 함수는 제거(Pop) 
 
 */
+
+/*
+[Recursion Function]
+
+- 동일한 함수를 계속 호출하면서 하나의 함수가 자신을 재귀적으로 호출
+ (중단 포인트를 만날 때 까지 같은 함수를 계속 호출)
+- 중단 조건은 마지막 라인에
+- 매번 다른 input을 통해 호출
+
+*/
+
+//ex
+const countDown = (num) => {
+  if (num <= 0) {
+    console.log('끝!!!!!');
+    return;
+  }
+  console.log(num);
+  num--;
+  countDown(num);
+};
+
+countDown(5);
