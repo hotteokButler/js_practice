@@ -7,9 +7,8 @@
 - 메인 외부 함수를 개발자가 외부에서 호출한다. 
 - 이 외부 함수를  호출할 때 인자를 내부로 전달해 줄 수 있다. 
 - 이 외부 함수 내부에는 또 다른 내부 함수가 정의되어 있다. 내부함수는 호출되고 재귀적으로 자기자신을 호출한다. 
-
+- 결과를 컴파일할 때 흔히 사용 결과는 배열과 다른 형태의 데이터 구조
  */
-
 
 // 기본 helper method recursion pattern
 const outer = (input) => {
@@ -17,7 +16,7 @@ const outer = (input) => {
 
   const helper = (helperInput) => {
     //outerScopedVar 변경
-    helper(helperInput--);
+    helper(helperInput--); // 인풋 값 감소
   };
 
   helper(input);
@@ -28,13 +27,13 @@ const outer = (input) => {
 //사용 예
 // ex) 어느 배열에서 홀수 값을 쉽하는 것 같은 작업
 
-const colletOddValues = (arr) => {
+const collectOddValues = (arr) => {
   const result = [];
 
   const helper = (helperInput) => {
     if (helperInput.length === 0) return;
-    
-    if( helperInput[0] % 2 !== 0) result.push(helperInput[0]);
+
+    if (helperInput[0] % 2 !== 0) result.push(helperInput[0]);
 
     helper(helperInput.slice(1));
   };
@@ -44,5 +43,37 @@ const colletOddValues = (arr) => {
   return result;
 };
 
+console.log(collectOddValues([1, 4, 6, 2, 3, 4, 5, 7])); //
 
-console.log(colletOddValues([1,4,6,2,3,4,5,7]))//
+/* 
+
+재귀 함수를 내부 호출히서 쓰는 위의 패턴이 아닌 재귀만 사용해서 풀이
+
+*/
+
+const collectOddValues2 = (arr) => {
+  let newArr = []; // 내부에 요소를 추가해주는 게 아닌 배열을 합쳐서 새 배열을 할당해야 하므로 let으로 선언
+
+  if (arr.length === 0) return newArr;
+
+  if (arr[0] % 2 !== 0) {
+    newArr.push(arr[0]);
+  }
+  console.log(newArr);
+  newArr = newArr.concat(collectOddValues2(arr.slice(1)));
+
+  return newArr;
+};
+console.log(collectOddValues2([1, 2, 3, 4, 5])); 
+
+/*
+collectOddValues2([1,2,3,4,5]) 재귀 동작 방식
+
+[1].concat(collectOddValues2([2,3,4,5]))
+            [].concat(collectOddValues2([3,4,5]))
+                        [3].concat(collectOddValues2([4,5]))
+                                    [].concat(collectOddValues2([5]))
+                                                [5].concat(collectOddValues2([])) 
+                                                              []
+
+ */
