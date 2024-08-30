@@ -51,8 +51,17 @@ const sumRange = (num) => {
 };
 
 console.log(sumRange(3));
-// 실행순서 3 >> return 3 + sumRange(2)
-// 실행순서 2 >>            return 2 + sumRange(1)
-// 실행순서 1 >>                       return 1    
-// call stack의 상단의 연산부터 시작해 sumRage(1)의 리턴값 (재귀 종료)인 1부터 순서대로  ((1) + 2)+ 3 순서대로 sum 후 리턴
 
+/*
+ 실행순서 3 >> return 3 + sumRange(2)
+ 실행순서 2 >>            return 2 + sumRange(1)
+ 실행순서 1 >>                       return 1    
+ call stack의 상단의 연산부터 시작해 sumRage(1)의 리턴값 (재귀 종료)인 1부터 순서대로  ((1) + 2)+ 3 순서대로 sum 후 리턴
+
+    --call stack 상태 --
+      [sumRange(1)]
+      [sumRange(2)]
+      [sumRange(3)]
+  [anonymous (실행파일)]
+
+*/
