@@ -25,7 +25,7 @@ const outer = (input) => {
 };
 
 //사용 예
-// ex) 어느 배열에서 홀수 값을 쉽하는 것 같은 작업
+// ex) 어느 배열에서 홀수 값을 구하는 것 같은 작업
 
 const collectOddValues = (arr) => {
   const result = [];
