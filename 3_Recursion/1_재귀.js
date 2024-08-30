@@ -46,7 +46,6 @@ countDown(5);
 // num까지의 합을 리턴하는 함수 sumRange를 작성하시오
 
 const sumRange = (num) => {
-  console.log('num : ', num);
   if (num === 1) return 1; //base case (중단 조건)
   return num + sumRange(num - 1); // 재귀호출 : 매번 더 작은 값으로 input 값을 받음
 };
