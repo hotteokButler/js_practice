@@ -29,7 +29,7 @@
 
 */
 
-//ex
+//ex1
 const countDown = (num) => {
   if (num <= 0) {
     console.log('끝!!!!!');
@@ -41,3 +41,19 @@ const countDown = (num) => {
 };
 
 countDown(5);
+
+//ex2 - 다른 재귀 형태
+// num까지의 합을 리턴하는 함수 sumRange를 작성하시오
+
+const sumRange = (num) => {
+  console.log('num : ', num);
+  if (num === 1) return 1; //base case (중단 조건)
+  return num + sumRange(num - 1); // 재귀호출 : 매번 더 작은 값으로 input 값을 받음
+};
+
+console.log(sumRange(3));
+// 실행순서 3 >> return 3 + sumRange(2)
+// 실행순서 2 >>            return 2 + sumRange(1)
+// 실행순서 1 >>                       return 1    
+// call stack의 상단의 연산부터 시작해 sumRage(1)의 리턴값 (재귀 종료)인 1부터 순서대로  ((1) + 2)+ 3 순서대로 sum 후 리턴
+
