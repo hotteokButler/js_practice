@@ -77,3 +77,17 @@ collectOddValues2([1,2,3,4,5]) 재귀 동작 방식
                                                               []
 
  */
+
+
+/*
+[순수하게 재귀만을 사용해서 구성 할 경우]
+
+자료형에 맞게 복사본을 만들어 진행 => 변경 할 필요 없음 , 결과를 축적할 수 있음
+
+1. array : array.slice(), spread operator , array.concat()와 같은 배열을 복사하는 메서드를 사용
+
+2. String : immutable(변경할 수 없음)하기에 slice, substr, substring 같은 메서드를 통해 문자열의 사본을 만들어 진행
+
+3. Object :  Object.assign , spread operator를 이용해 복사본 만들어 사용
+
+*/
