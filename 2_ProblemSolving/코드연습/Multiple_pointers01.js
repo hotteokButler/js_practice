@@ -24,17 +24,15 @@ const averagePair = (arr, avg) => {
   let end = arr.length - 1;
 
   while (first < end) {
-    const avgPair = ((arr[first] + arr[end]) / 2).toFixed(2);
-    const toFixedAvg = avg.toFixed(2);
-    if (avgPair < toFixedAvg) {
+    const avgPair = (arr[first] + arr[end]) / 2;
+    if (avgPair < avg) {
       first++;
-    } else if (avgPair > toFixedAvg) {
+    } else if (avgPair > avg) {
       end--;
-    } else if (avgPair === toFixedAvg) {
+    } else if (avgPair === avg) {
       return true;
     }
   }
-
   return false;
 };
 
