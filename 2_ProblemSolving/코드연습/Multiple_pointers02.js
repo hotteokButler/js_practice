@@ -27,15 +27,21 @@ const inSubsequence = (str1, str2) => {
     const str1Elem = str1[i];
     const str2Elem = str2[k];
 
-    if (str1Elem === str2Elem) {
-      i++;
-    }
+    if (str1Elem === str2Elem) i++;
+
+    if (i === str1.length) return true;
   }
 
-  if (i > str1.length - 1) return true;
   return false;
 };
 console.log(inSubsequence('hello', 'hello world')); // true
 console.log(inSubsequence('sing', 'sting')); //true;
 console.log(inSubsequence('abc', 'abracadabra')); // true
 console.log(inSubsequence('abc', 'acb')); // false (order matters)
+
+
+/**
+ * 
+ * 풀이 해답 로직은 거의 같지만 리팩토링 필요, 
+ * 이미 true라면 문자열 끝까지 확인 할 필요 없으므로 return 값을 포문 안으로 이동
+ */
